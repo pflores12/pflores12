@@ -1,0 +1,310 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="initial-scale=1,user-scalable=no,maximum-scale=1,width=device-width">
+        <meta name="mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <link rel="stylesheet" href="css/leaflet.css">
+        <link rel="stylesheet" href="css/qgis2web.css">
+        <link rel="stylesheet" href="css/leaflet-search.css">
+        <link rel="stylesheet" href="css/leaflet-measure.css">
+        <style>
+        html, body, #map {
+            width: 100%;
+            height: 100%;
+            padding: 0;
+            margin: 0;
+        }
+        </style>
+        <title></title>
+    </head>
+    <body>
+        <div id="map">
+        </div>
+        <script src="js/qgis2web_expressions.js"></script>
+        <script src="js/leaflet.js"></script>
+        <script src="js/leaflet.rotatedMarker.js"></script>
+        <script src="js/leaflet.pattern.js"></script>
+        <script src="js/leaflet-hash.js"></script>
+        <script src="js/Autolinker.min.js"></script>
+        <script src="js/rbush.min.js"></script>
+        <script src="js/labelgun.min.js"></script>
+        <script src="js/labels.js"></script>
+        <script src="js/leaflet-measure.js"></script>
+        <script src="js/leaflet-search.js"></script>
+        <script src="data/Fracc_760_1.js"></script>
+        <script src="data/hitos_test_2.js"></script>
+        <script>
+        var highlightLayer;
+        function highlightFeature(e) {
+            highlightLayer = e.target;
+            highlightLayer.openPopup();
+        }
+        var map = L.map('map', {
+            zoomControl:true, maxZoom:28, minZoom:1
+        }).fitBounds([[-34.6336670283,-58.8494541785],[-34.4875630205,-58.5294768766]]);
+        var hash = new L.Hash(map);
+        map.attributionControl.addAttribution('<a href="https://github.com/tomchadwin/qgis2web" target="_blank">qgis2web</a>');
+        var measureControl = new L.Control.Measure({
+            primaryLengthUnit: 'meters',
+            secondaryLengthUnit: 'kilometers',
+            primaryAreaUnit: 'sqmeters',
+            secondaryAreaUnit: 'hectares'
+        });
+        measureControl.addTo(map);
+        var bounds_group = new L.featureGroup([]);
+        var basemap0 = L.tileLayer('http://a.tile.stamen.com/terrain/{z}/{x}/{y}.png', {
+            attribution: 'Map tiles by <a href="http://stamen.com">Stamen Design</a>,<a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a> &mdash;Map data: &copy; <a href="http://openstreetmap.org">OpenStreetMap</a>contributors,<a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>',
+            maxZoom: 28
+        });
+        basemap0.addTo(map);
+        function setBounds() {
+        }
+        var overlay_OSMStandard_0 = L.tileLayer('http://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            opacity: 1.0
+        });
+        overlay_OSMStandard_0.addTo(map);
+        map.addLayer(overlay_OSMStandard_0);
+        function pop_Fracc_760_1(feature, layer) {
+            layer.on({
+                mouseout: function(e) {
+                    if (typeof layer.closePopup == 'function') {
+                        layer.closePopup();
+                    } else {
+                        layer.eachLayer(function(feature){
+                            feature.closePopup()
+                        });
+                    }
+                },
+                mouseover: highlightFeature,
+            });
+            var popupContent = '<table>\
+                    <tr>\
+                        <th scope="row">FRACCION</th>\
+                        <td>' + (feature.properties['FRACCION'] !== null ? Autolinker.link(String(feature.properties['FRACCION'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['CLAVEF'] !== null ? Autolinker.link(String(feature.properties['CLAVEF'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['clas'] !== null ? Autolinker.link(String(feature.properties['clas'])) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_Fracc_760_1_0(feature) {
+            if (feature.properties['clas'] >= 0.000000 && feature.properties['clas'] <= 1.000000 ) {
+                return {
+                pane: 'pane_Fracc_760_1',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(255,255,255,1.0)',
+            }
+            }
+            if (feature.properties['clas'] >= 1.000000 && feature.properties['clas'] <= 1.000000 ) {
+                return {
+                pane: 'pane_Fracc_760_1',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(255,191,191,1.0)',
+            }
+            }
+            if (feature.properties['clas'] >= 1.000000 && feature.properties['clas'] <= 2.000000 ) {
+                return {
+                pane: 'pane_Fracc_760_1',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(255,128,128,1.0)',
+            }
+            }
+            if (feature.properties['clas'] >= 2.000000 && feature.properties['clas'] <= 2.600000 ) {
+                return {
+                pane: 'pane_Fracc_760_1',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(255,64,64,1.0)',
+            }
+            }
+            if (feature.properties['clas'] >= 2.600000 && feature.properties['clas'] <= 3.000000 ) {
+                return {
+                pane: 'pane_Fracc_760_1',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(255,0,0,1.0)',
+            }
+            }
+        }
+        map.createPane('pane_Fracc_760_1');
+        map.getPane('pane_Fracc_760_1').style.zIndex = 401;
+        map.getPane('pane_Fracc_760_1').style['mix-blend-mode'] = 'normal';
+        var layer_Fracc_760_1 = new L.geoJson(json_Fracc_760_1, {
+            attribution: '<a href=""></a>',
+            pane: 'pane_Fracc_760_1',
+            onEachFeature: pop_Fracc_760_1,
+            style: style_Fracc_760_1_0,
+        });
+        bounds_group.addLayer(layer_Fracc_760_1);
+        map.addLayer(layer_Fracc_760_1);
+        function pop_hitos_test_2(feature, layer) {
+            layer.on({
+                mouseout: function(e) {
+                    if (typeof layer.closePopup == 'function') {
+                        layer.closePopup();
+                    } else {
+                        layer.eachLayer(function(feature){
+                            feature.closePopup()
+                        });
+                    }
+                },
+                mouseover: highlightFeature,
+            });
+            var popupContent = '<table>\
+                    <tr>\
+                        <th scope="row">NOMBRE</th>\
+                        <td>' + (feature.properties['NOMBRE'] !== null ? Autolinker.link(String(feature.properties['NOMBRE'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['test'] !== null ? Autolinker.link(String(feature.properties['test'])) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_hitos_test_2_0(feature) {
+            if (feature.properties['test'] >= 1.000000 && feature.properties['test'] <= 3.000000 ) {
+                return {
+                pane: 'pane_hitos_test_2',
+                radius: 2.0,
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1,
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(229,182,54,1.0)',
+            }
+            }
+            if (feature.properties['test'] >= 3.000000 && feature.properties['test'] <= 7.000000 ) {
+                return {
+                pane: 'pane_hitos_test_2',
+                radius: 4.5,
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1,
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(229,182,54,1.0)',
+            }
+            }
+            if (feature.properties['test'] >= 7.000000 && feature.properties['test'] <= 11.000000 ) {
+                return {
+                pane: 'pane_hitos_test_2',
+                radius: 7.0,
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1,
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(229,182,54,1.0)',
+            }
+            }
+            if (feature.properties['test'] >= 11.000000 && feature.properties['test'] <= 15.000000 ) {
+                return {
+                pane: 'pane_hitos_test_2',
+                radius: 9.5,
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1,
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(229,182,54,1.0)',
+            }
+            }
+            if (feature.properties['test'] >= 15.000000 && feature.properties['test'] <= 20.000000 ) {
+                return {
+                pane: 'pane_hitos_test_2',
+                radius: 12.0,
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1,
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(229,182,54,1.0)',
+            }
+            }
+        }
+        map.createPane('pane_hitos_test_2');
+        map.getPane('pane_hitos_test_2').style.zIndex = 402;
+        map.getPane('pane_hitos_test_2').style['mix-blend-mode'] = 'normal';
+        var layer_hitos_test_2 = new L.geoJson(json_hitos_test_2, {
+            attribution: '<a href=""></a>',
+            pane: 'pane_hitos_test_2',
+            onEachFeature: pop_hitos_test_2,
+            pointToLayer: function (feature, latlng) {
+                var context = {
+                    feature: feature,
+                    variables: {}
+                };
+                return L.circleMarker(latlng, style_hitos_test_2_0(feature));
+            },
+        });
+        bounds_group.addLayer(layer_hitos_test_2);
+        map.addLayer(layer_hitos_test_2);
+        var baseMaps = {};
+        L.control.layers(baseMaps,{'hitos_test<br /><table><tr><td style="text-align: center;"><img src="legend/hitos_test_2_130.png" /></td><td> 1 - 3 </td></tr><tr><td style="text-align: center;"><img src="legend/hitos_test_2_371.png" /></td><td> 3 - 7 </td></tr><tr><td style="text-align: center;"><img src="legend/hitos_test_2_7112.png" /></td><td> 7 - 11 </td></tr><tr><td style="text-align: center;"><img src="legend/hitos_test_2_11153.png" /></td><td> 11 - 15 </td></tr><tr><td style="text-align: center;"><img src="legend/hitos_test_2_15204.png" /></td><td> 15 - 20 </td></tr></table>': layer_hitos_test_2,'Fracc_760<br /><table><tr><td style="text-align: center;"><img src="legend/Fracc_760_1_010.png" /></td><td>0 - 1 </td></tr><tr><td style="text-align: center;"><img src="legend/Fracc_760_1_111.png" /></td><td>1 - 1 </td></tr><tr><td style="text-align: center;"><img src="legend/Fracc_760_1_122.png" /></td><td>1 - 2 </td></tr><tr><td style="text-align: center;"><img src="legend/Fracc_760_1_2263.png" /></td><td>2 - 2,6 </td></tr><tr><td style="text-align: center;"><img src="legend/Fracc_760_1_2634.png" /></td><td>2,6 - 3 </td></tr></table>': layer_Fracc_760_1,"OSM Standard": overlay_OSMStandard_0,}).addTo(map);
+        setBounds();
+        map.addControl(new L.Control.Search({
+            layer: layer_hitos_test_2,
+            initial: false,
+            hideMarkerOnCollapse: true,
+            propertyName: 'NOMBRE'}));
+        </script>
+    </body>
+</html>
